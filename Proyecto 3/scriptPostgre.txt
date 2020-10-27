@@ -1,0 +1,72 @@
+create schema Tienda
+
+create table Tienda.Cliente  (
+	ID_Cliente	INT PRIMARY KEY,
+	nombre		CHARACTER VARYING(50),
+	apellido	CHARACTER VARYING(50),
+	edad		INT,
+	genero		CHARACTER VARYING(50),
+	dirección	CHARACTER VARYING(50)
+)
+
+CREATE TABLE Tienda.Tarjeta
+(
+    ID_Tarjeta INT PRIMARY KEY NOT NULL,
+    tipo character varying(50),
+    numero character varying(50),
+    monto character varying(50),
+    moneda character varying(50)
+)
+
+CREATE TABLE Tienda.Cliente_Tarjeta
+(
+    ID_Cliente INT NOT NULL,
+    ID_Tarjeta INT NOT NULL,
+	CONSTRAINT FK_ID_Cliente FOREIGN KEY(ID_Cliente) REFERENCES Tienda.Cliente(ID_Cliente),
+	CONSTRAINT FK_ID_Tarjeta FOREIGN KEY(ID_Tarjeta) REFERENCES Tienda.Tarjeta(ID_Tarjeta)
+)
+
+CREATE TABLE Tienda.Compra
+(
+    ID_Compra INT PRIMARY KEY NOT NULL,
+    monto character varying(50),
+    fecha date
+)
+
+CREATE TABLE Tienda.Cliente_Compra
+(
+    ID_Cliente INT NOT NULL,
+    ID_Compra INT NOT NULL,
+   	CONSTRAINT FK_ID_Cliente FOREIGN KEY(ID_Cliente) REFERENCES Tienda.Cliente(ID_Cliente),
+	CONSTRAINT FK_ID_Compra FOREIGN KEY(ID_Compra) REFERENCES Tienda.Compra(ID_Compra)
+)
+
+CREATE TABLE Tienda.Cliente_Telefono
+(
+    ID_Cliente INT NOT NULL,
+    telefono character varying(50) NOT NULL,
+	CONSTRAINT FK_ID_Cliente FOREIGN KEY(ID_Cliente) REFERENCES Tienda.Cliente(ID_Cliente)
+)
+
+CREATE TABLE Tienda.Cliente_Correo
+(
+    ID_Cliente integer NOT NULL,
+    correo character varying(50) NOT NULL,
+    CONSTRAINT FK_ID_Cliente FOREIGN KEY(ID_Cliente) REFERENCES Tienda.Cliente(ID_Cliente)
+)
+
+select*from Tienda.Cliente;
+select*from Tienda.Tarjeta;
+select*from Tienda.Cliente_Tarjeta;
+select*from Tienda.Compra;
+select*from Tienda.Cliente_Compra;
+select*from Tienda.Cliente_Telefono;
+select*from Tienda.Cliente_Correo;
+
+delete from Tienda.Cliente_Correo;
+delete from Tienda.Cliente_Telefono;
+delete from Tienda.Cliente_Compra;
+delete from Tienda.Compra;
+delete from Tienda.Cliente_Tarjeta;
+delete from Tienda.Tarjeta;
+delete from Tienda.Cliente;
